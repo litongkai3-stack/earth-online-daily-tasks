@@ -47,7 +47,7 @@ Leave breathing room between groups rather than inflating the font. The card sho
 
 The footer must start exactly with `地球online温馨提醒：`. Add a short, genuine reminder tied to a task theme. Example structure: `地球online温馨提醒：慢一点，也没关系`.
 
-## Image prompt requirements
+## Native image prompt requirements
 
 State all of the following in the image prompt:
 
@@ -59,6 +59,8 @@ State all of the following in the image prompt:
 
 For an existing local card target, inspect it first. For a fresh generation, pass the reference image into the generation request and make the result original rather than a pixel-for-pixel reproduction.
 
+When native image generation is unavailable, use [the HTML fallback](html-fallback.md) instead of this prompt path.
+
 ## Mandatory record format
 
 After visual validation, create `.earth-online-daily-tasks/records/YYYY-MM-DD.md` with this structure. The Markdown document is the adopted-result ledger used for later de-duplication.
@@ -66,7 +68,7 @@ After visual validation, create `.earth-online-daily-tasks/records/YYYY-MM-DD.md
 ```markdown
 ---
 date: YYYY-MM-DD
-card: ../output/YYYY-MM-DD.png
+card: ../output/YYYY-MM-DD.png or ../output/YYYY-MM-DD.html
 reference: <original reference filename or path>
 core_direction: <user supplied or generated>
 egg_direction: <user supplied or generated>
@@ -100,6 +102,6 @@ For a revision of the same card, retain the original accepted task list. Save a 
 ```markdown
 ## Revision YYYY-MM-DDTHH:MM:SS±HH:MM
 
-- card: ../output/YYYY-MM-DD-v2.png
+- card: ../output/YYYY-MM-DD-v2.png or ../output/YYYY-MM-DD-v2.html
 - changed: <for example, body text enlarged and footer updated>
 ```

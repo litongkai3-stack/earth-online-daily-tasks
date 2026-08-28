@@ -1,6 +1,6 @@
 ---
 name: earth-online-daily-tasks
-description: "Generate a polished pixel-art Earth Online daily task card from a reference card and date, while logging adopted tasks so future cards do not repeat them."
+description: "Generate a pixel-art Earth Online daily task card from a reference card and date, with an HTML fallback and a task ledger that prevents repeats."
 metadata:
   short-description: "Generate pixel-art daily cards with task history"
 ---
@@ -32,7 +32,7 @@ Use the caller's current project as the **working project**. Store generated art
 
 ```text
 <working-project>/.earth-online-daily-tasks/
-├── output/YYYY-MM-DD.png
+├── output/YYYY-MM-DD.png or YYYY-MM-DD.html
 └── records/YYYY-MM-DD.md
 ```
 
@@ -48,10 +48,12 @@ Read [the generation specification](references/generation-spec.md) before compos
 2. Load task history and draft exactly three core tasks plus one egg task. Apply the content and no-repeat rules in the generation specification.
 3. Draft a single `地球online温馨提醒：…` footer. It should feel warm and relate to at least one of today's tasks; it is not a generic slogan or an unrelated promotion.
 4. Show the proposed text in the response when a user decision or wording choice is needed; otherwise proceed directly to the image. Keep the date formatted as `YYYYMMDD`.
-5. Use the platform image-generation workflow. If editing a local target image, inspect it first with the image-viewing tool. Put every intended text string in the prompt verbatim, state its placement, and preserve the reference's overall visual hierarchy. Treat the reference as style/layout inspiration, not an invitation to copy its previous text or unrelated app/browser chrome.
-6. Inspect the result visually. Verify all Chinese characters, punctuation, date digits, task count, spacing, and footer against the checklist. If the copy is inaccurate or unreadable, make one targeted text/layout edit rather than regenerating the whole illustration blindly.
-7. Once the card is accepted as the final result, save the image and create or update its Markdown record as defined in the generation specification. The record is mandatory; do not claim completion until it exists.
-8. Return the image and link to both the final image and the record. Do not commit, publish, or push to GitHub unless the user separately asks.
+5. Select a render path based on *available tools*, not the agent's name or assumed model capability:
+   - **Image path:** when native image generation is available, use the platform image-generation workflow. If editing a local target image, inspect it first with the image-viewing tool. Put every intended text string in the prompt verbatim, state its placement, and preserve the reference's overall visual hierarchy.
+   - **HTML fallback:** when native image generation is unavailable, read [the HTML fallback instructions](references/html-fallback.md). Copy `assets/fallback-card.html` into the output directory, fill its data block with the approved card copy, and return the standalone HTML file. It is an intentional deliverable, not an error state.
+6. Inspect the resulting PNG or HTML card. Verify all Chinese characters, punctuation, date digits, task count, spacing, and footer against the checklist. If the copy is inaccurate or unreadable, make one targeted text/layout edit rather than rebuilding the whole card blindly.
+7. Once the card is accepted as the final result, save the PNG or HTML card and create or update its Markdown record as defined in the generation specification. The record is mandatory; do not claim completion until it exists.
+8. Return the card and link to both the final artifact and the record. Do not commit, publish, or push to GitHub unless the user separately asks.
 
 ## Non-negotiable visual lessons
 
@@ -60,3 +62,7 @@ Read [the generation specification](references/generation-spec.md) before compos
 - Integrate text into the card background. Do not introduce ruled lines, dotted writing guides, oversized white panels, or generic form boxes unless the reference itself deliberately uses them.
 - Reserve decorations for borders and corners. They must not collide with the date, task copy, or footer.
 - A complete card always has: title, date, `核心任务：`, three core bullets, `彩蛋任务（选做）：`, one egg task, and a `地球online温馨提醒：…` footer.
+
+## Cross-agent compatibility
+
+Keep this skill normally discoverable (`allow_implicit_invocation: true`) so any agent that has the skill installed may use it. Do not require an agent-specific plugin, model name, API key, or cloud service to complete the request. Native image generation is preferred where available; the bundled HTML fallback is required when it is not.

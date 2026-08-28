@@ -26,6 +26,7 @@ Use this checklist after each image-generation pass. If a required item fails, m
 - [ ] Core and egg groups use space efficiently without giant headline typography or excessive empty gaps.
 - [ ] Border decorations do not overlap text; the footer remains legible above bottom artwork.
 - [ ] The result contains no browser chrome, watermark, unrelated logo, or copied task text from the reference.
+- [ ] For an HTML fallback, the file opens as a standalone card and contains no unresolved `[PLACEHOLDER]` or sample task content.
 
 ## Known pitfalls and corrections
 
@@ -36,6 +37,7 @@ Use this checklist after each image-generation pass. If a required item fails, m
 | Dotted lines / white panels appear | They turn the card into a generic worksheet and depart from the reference's fused scene. | Remove guides and panels; extend the card background behind the text. |
 | Footer is decorative but unrelated | The world-building line loses its purpose. | Make the reminder acknowledge a task's emotional or practical theme. |
 | Image model garbles Chinese text | The output cannot be published even when the scene is attractive. | Perform a targeted text-localization edit using exact copy; do not accept near-matches. |
+| Native image generation is unavailable | The request should not fail merely because a specific agent lacks a media tool. | Produce the standalone HTML fallback with the final task data, then record its `.html` output path. |
 | Same task returns on a later day | The series starts to feel templated. | Read the Markdown ledger first and replace the proposed task with a distinct action family. |
 
 ## Acceptance rule

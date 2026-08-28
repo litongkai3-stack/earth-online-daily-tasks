@@ -1,6 +1,6 @@
 interface:
   display_name: "地球 Online 每日任务卡"
-  short_description: "生成像素风每日任务卡并自动记录结果与规避重复任务"
+  short_description: "生成像素风每日任务卡，支持 HTML 回退与任务去重"
   default_prompt: "Use $earth-online-daily-tasks with my reference pixel card and date 2026-08-28 to create today’s task card."
 policy:
   allow_implicit_invocation: true

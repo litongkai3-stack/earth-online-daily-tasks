@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>地球 Online 每日任务</title>
+    <style>
+      :root {
+        --ink: #0b5a56;
+        --deep-ink: #073b45;
+        --sun: #ffe98a;
+        --sky: #62b7ee;
+        --mint: #c9f4dd;
+        --cream: #fff7bd;
+        --line: #167d76;
+        --pixel: 4px;
+      }
+
+      * { box-sizing: border-box; }
+      body {
+        align-items: center;
+        background: #173d53;
+        display: flex;
+        justify-content: center;
+        margin: 0;
+        min-height: 100vh;
+        padding: 24px;
+      }
+      .stage { transform-origin: center center; }
+      .card {
+        background:
+          radial-gradient(circle at 10% 6%, #fff9c5 0 5px, transparent 6px),
+          radial-gradient(circle at 84% 19%, #fff9c5 0 7px, transparent 8px),
+          radial-gradient(circle at 70% 34%, #fff6b1 0 3px, transparent 4px),
+          linear-gradient(180deg, var(--sky) 0 19%, var(--cream) 38%, var(--mint) 100%);
+        border: 10px solid var(--deep-ink);
+        box-shadow: 0 0 0 8px var(--sun), 0 0 0 16px var(--line), 18px 18px 0 #082f42;
+        color: var(--deep-ink);
+        font-family: "PingFang SC", "Microsoft YaHei", monospace;
+        height: 1656px;
+        overflow: hidden;
+        position: relative;
+        width: 1242px;
+      }
+      .corner { color: #fff5a5; font-size: 56px; position: absolute; text-shadow: 5px 5px 0 var(--deep-ink); }
+      .corner--tl { left: 42px; top: 34px; }
+      .corner--tr { right: 42px; top: 34px; }
+      .cloud { background: #fff; border: 5px solid #d8f6ff; height: 26px; opacity: .95; position: absolute; width: 88px; }
+      .cloud::before, .cloud::after { background: #fff; border: 3px solid #d8f6ff; content: ""; position: absolute; }
+      .cloud::before { border-radius: 50%; height: 35px; left: 12px; top: -24px; width: 35px; }
+      .cloud::after { border-radius: 50%; height: 28px; left: 44px; top: -16px; width: 28px; }
+      .cloud--one { left: 174px; top: 102px; transform: scale(.9); }
+      .cloud--two { right: 210px; top: 120px; transform: scale(.7); }
+      .top {
+        align-items: center;
+        display: flex;
+        gap: 44px;
+        justify-content: space-between;
+        left: 96px;
+        position: absolute;
+        right: 96px;
+        top: 102px;
+        z-index: 3;
+      }
+      h1, h2, p { margin: 0; }
+      h1 {
+        color: var(--sun);
+        font-size: 112px;
+        font-weight: 900;
+        letter-spacing: .04em;
+        line-height: 1;
+        text-shadow: 5px 0 0 var(--deep-ink), -5px 0 0 var(--deep-ink), 0 5px 0 var(--deep-ink), 8px 10px 0 #48a99b;
+      }
+      .date {
+        background: #fffad4;
+        border: 6px solid var(--line);
+        border-radius: 9px;
+        color: var(--ink);
+        font-family: monospace;
+        font-size: 52px;
+        font-weight: 800;
+        letter-spacing: .04em;
+        padding: 14px 18px;
+        white-space: nowrap;
+      }
+      .globe { font-size: 72px; position: absolute; right: 82px; top: 306px; }
+      .section { left: 110px; position: absolute; right: 110px; top: 370px; }
+      .section--egg { top: 970px; }
+      h2 {
+        color: var(--ink);
+        font-size: 62px;
+        font-weight: 900;
+        letter-spacing: .06em;
+        text-shadow: 3px 3px 0 #fff3a7;
+      }
+      ul { list-style: none; margin: 32px 0 0; padding: 0; }
+      li, .egg-line {
+        color: var(--deep-ink);
+        font-size: 48px;
+        font-weight: 800;
+        letter-spacing: .03em;
+        line-height: 1.45;
+      }
+      li::before { content: "－"; }
+      .egg { margin: 32px 0 0; }
+      .footer {
+        bottom: 190px;
+        color: var(--ink);
+        font-size: 34px;
+        font-weight: 800;
+        left: 110px;
+        letter-spacing: .02em;
+        position: absolute;
+        right: 110px;
+        text-align: center;
+      }
+      .grass {
+        background: repeating-linear-gradient(90deg, #11805e 0 11px, #3eb775 11px 18px, #0d684f 18px 25px);
+        border-top: 5px solid #0a735d;
+        bottom: 0;
+        height: 126px;
+        left: 0;
+        position: absolute;
+        right: 0;
+      }
+      .grass::before { color: #ffdf6a; content: "✦   ✿       ✦      ✿       ✦"; font-size: 32px; left: 8%; letter-spacing: 1.1em; position: absolute; top: -32px; white-space: nowrap; }
+    </style>
+  </head>
+  <body>
+    <div class="stage" id="stage">
+    <main class="card" aria-label="地球 Online 每日任务">
+      <span class="corner corner--tl" aria-hidden="true">♥</span>
+      <span class="corner corner--tr" aria-hidden="true">★</span>
+      <span class="cloud cloud--one" aria-hidden="true"></span>
+      <span class="cloud cloud--two" aria-hidden="true"></span>
+      <span class="globe" aria-hidden="true">🌎</span>
+      <header class="top">
+        <h1>今日任务</h1>
+        <time class="date" id="date"></time>
+      </header>
+      <section class="section" aria-labelledby="core-title">
+        <h2 id="core-title">核心任务：</h2>
+        <ul id="core-tasks"></ul>
+      </section>
+      <section class="section section--egg" aria-labelledby="egg-title">
+        <h2 id="egg-title">彩蛋任务（选做）：</h2>
+        <div class="egg" id="egg-task"></div>
+      </section>
+      <p class="footer" id="footer"></p>
+      <div class="grass" aria-hidden="true"></div>
+    </main>
+    </div>
+    <!-- Replace only these JSON values when creating a daily card. -->
+    <script id="earth-online-card-data" type="application/json">
+      {
+        "date": "YYYYMMDD",
+        "coreTasks": ["核心任务一", "核心任务二", "核心任务三"],
+        "eggLines": ["－彩蛋任务第一行", "彩蛋任务第二行"],
+        "footer": "地球online温馨提醒：温柔地完成今天的小事"
+      }
+    </script>
+    <script>
+      const data = JSON.parse(document.getElementById('earth-online-card-data').textContent);
+      document.getElementById('date').textContent = data.date;
+      document.getElementById('core-tasks').replaceChildren(...data.coreTasks.map((task) => {
+        const item = document.createElement('li');
+        item.textContent = task;
+        return item;
+      }));
+      document.getElementById('egg-task').replaceChildren(...data.eggLines.map((line) => {
+        const paragraph = document.createElement('p');
+        paragraph.className = 'egg-line';
+        paragraph.textContent = line;
+        return paragraph;
+      }));
+      document.getElementById('footer').textContent = data.footer;
+      const cardWidth = 1242 + 32;
+      const cardHeight = 1656 + 32;
+      const margin = 40;
+      function fit() {
+        const scale = Math.min(
+          (window.innerWidth - margin) / cardWidth,
+          (window.innerHeight - margin) / cardHeight,
+          1
+        );
+        document.getElementById('stage').style.transform = `scale(${scale})`;
+      }
+      window.addEventListener('resize', fit);
+      fit();
+    </script>
+  </body>
+</html>
